@@ -1,6 +1,6 @@
 	var app = angular.module('App', ['ngRoute']);
 
-	app.config(function($routeProvider) {
+	app.config(['$routeProvider', function($routeProvider) {
 
 		$routeProvider
 
@@ -18,16 +18,16 @@
 	    templateUrl: 'templates/page2.html',
 	    controller: 'page2Controller'
 	  });
-	});
+	}]);
 
-	app.controller('homeController', function($scope) {
+	app.controller('homeController', ['$scope', function($scope) {
 	  $scope.message = 'Message on home page';
-	});
+	}]);
 
-	app.controller('page1Controller', function($scope) {
+	app.controller('page1Controller', ['$scope', function($scope) {
 	  $scope.message = 'Message on page 1';
-	});
+	}]);
 
-	app.controller('page2Controller', function($scope) {
+	app.controller('page2Controller', ['$scope', function($scope) {
 	  $scope.message = 'Message on page 2';
-	});
+	}]);
