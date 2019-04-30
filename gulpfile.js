@@ -4,6 +4,9 @@ var useref = require('gulp-useref');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-clean-css');
 var del = require('del');
+var cachebust = require('gulp-cache-bust');
+var replace = require('gulp-string-replace');
+var versionTimeStamp = "" + Date.now();
 
 gulp.task('delete_all', function() {
   return del([
@@ -18,8 +21,12 @@ gulp.task('delete_all', function() {
 gulp.task('minify', function(){
   return gulp.src('index.html')
           .pipe(useref())
+          .pipe(replace('___REPLACE_IN_GULP___', versionTimeStamp))
           .pipe(gulpif('*.js', uglify()))
           .pipe(gulpif('*.css', minifyCss()))
+          .pipe(cachebust({
+            type: 'timestamp'
+          }))
           .pipe(gulp.dest('public'));
 });
 
